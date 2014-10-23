@@ -42,6 +42,7 @@ public class ConsumerTest {
         Map<String, List<KafkaStream<byte[], byte[]>>> consumerMap = consumer
                 .createMessageStreams(topicCountMap);
         List<KafkaStream<byte[], byte[]>> streams = consumerMap.get(topic);
+        System.out.println(streams.size());
 
         // now launch all the threads
         executor = Executors.newFixedThreadPool(numThreads);
@@ -68,7 +69,7 @@ public class ConsumerTest {
     }
 
     public static void main(String[] arg) {
-        String[] args = { "10.128.12.72:2181", "group-1", "page_visits", "12" };
+        String[] args = { "10.128.12.72:2181", "group-1", "page_visits", "1" };
         String zooKeeper = args[0];
         String groupId = args[1];
         String topic = args[2];
@@ -77,11 +78,11 @@ public class ConsumerTest {
         ConsumerTest demo = new ConsumerTest(zooKeeper, groupId, topic);
         demo.run(threads);
 
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException ie) {
-
-        }
-        demo.shutdown();
+//        try {
+//            Thread.sleep(100000);
+//        } catch (InterruptedException ie) {
+//
+//        }
+        //demo.shutdown();
     }
 }
